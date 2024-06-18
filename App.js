@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
   ScrollView,
+  FlatList,
 } from "react-native";
 
 export default function App() {
@@ -43,15 +44,25 @@ export default function App() {
       </View>
       {/* Task 3: To display the course added course goals on the */}
       <View style={styles.goalsContainer}>
-        <ScrollView>
-          {courseGoals.map((goal) => (
-            <View style={styles.goalItem} key={goal.key}>
-              {/* Rounded corner does;t work directly on ios, for htat wrap the text
+        <FlatList
+          data={courseGoals}
+          renderItem={(itemData) => {
+            return (
+              <View style={styles.goalItem} key={itemData.item.key}>
+                {/* Rounded corner does;t work directly on ios, for htat wrap the text
             within view */}
-              <Text style={styles.goalText}>{goal.text}</Text>
-            </View>
-          ))}
-        </ScrollView>
+                <Text style={styles.goalText}>{itemData.item.text}</Text>
+              </View>
+            );
+          }}
+        />
+        {/* 
+        Disadvantage of ScrollView : it renders all its child items in the beginnging itself.
+        Even for the elemnts that are currently not visible on the screen.
+        Use Scrollview only when there is less content to scroll
+         */}
+        {/* Therefore we uses Flatlist for scrolling, renders only those items that are currently on the screen, for rest lazyloading
+        We now dont map our data manually, for flatlist*/}
       </View>
     </View>
   );
