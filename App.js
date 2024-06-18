@@ -1,10 +1,18 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+} from "react-native";
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalState] = useState("");
   //Task 2: To manage the list of course goals
   const [courseGoals, setCourseGoals] = useState([]);
+  const [goalCounter, setGoalCounter] = useState(0);
 
   function goalInputHandler(enteredText) {
     setEnteredGoalState(enteredText);
@@ -14,8 +22,9 @@ export default function App() {
   function addGoalHandler() {
     setCourseGoals((currentCourseGoals) => [
       ...currentCourseGoals,
-      enteredGoalText,
+      { key: goalCounter.toString(), text: enteredGoalText },
     ]);
+    setGoalCounter((prevCounter) => prevCounter + 1);
   }
 
   return (
@@ -34,9 +43,15 @@ export default function App() {
       </View>
       {/* Task 3: To display the course added course goals on the */}
       <View style={styles.goalsContainer}>
-        {courseGoals.map((goal) => (
-          <Text key={goal}>{goal}</Text>
-        ))}
+        <ScrollView>
+          {courseGoals.map((goal) => (
+            <View style={styles.goalItem} key={goal.key}>
+              {/* Rounded corner does;t work directly on ios, for htat wrap the text
+            within view */}
+              <Text style={styles.goalText}>{goal.text}</Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -66,5 +81,14 @@ const styles = StyleSheet.create({
   },
   goalsContainer: {
     flex: 6,
+  },
+  goalItem: {
+    margin: 8,
+    padding: 8,
+    borderRadius: 6,
+    backgroundColor: "#5e0acc",
+  },
+  goalText: {
+    color: "white",
   },
 });
