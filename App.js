@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function App() {
-  const [enterdGoalText, setEnteredGoalState] = useState("");
+  const [enteredGoalText, setEnteredGoalState] = useState("");
+  //Task 2: To manage the list of course goals
+  const [courseGoals, setCourseGoals] = useState([]);
 
   function goalInputHandler(enteredText) {
     setEnteredGoalState(enteredText);
@@ -10,7 +12,10 @@ export default function App() {
   //Task 1: to get the value enterd from the goalInputHandler to addGoalHandler.
   //Therefore, we need to store it as state, which is updated with every keystroke of goalInputHandler, so that we can use it at second fnction
   function addGoalHandler() {
-    console.log(enterdGoalText);
+    setCourseGoals((currentCourseGoals) => [
+      ...currentCourseGoals,
+      enteredGoalText,
+    ]);
   }
 
   return (
@@ -27,8 +32,11 @@ export default function App() {
         />
         <Button title="Add Goal" onPress={addGoalHandler} />
       </View>
+      {/* Task 3: To display the course added course goals on the */}
       <View style={styles.goalsContainer}>
-        <Text>List of Goals...</Text>
+        {courseGoals.map((goal) => (
+          <Text key={goal}>{goal}</Text>
+        ))}
       </View>
     </View>
   );
