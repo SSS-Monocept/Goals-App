@@ -1,7 +1,18 @@
-import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function App() {
+  const [enterdGoalText, setEnteredGoalState] = useState("");
+
+  function goalInputHandler(enteredText) {
+    setEnteredGoalState(enteredText);
+  }
+  //Task 1: to get the value enterd from the goalInputHandler to addGoalHandler.
+  //Therefore, we need to store it as state, which is updated with every keystroke of goalInputHandler, so that we can use it at second fnction
+  function addGoalHandler() {
+    console.log(enterdGoalText);
+  }
+
   return (
     <View style={styles.appContainer}>
       {/* 
@@ -9,8 +20,12 @@ export default function App() {
       2. We need our parent to take the entire screen space 
       */}
       <View style={styles.inputContainer}>
-        <TextInput style={styles.textInput} placeholder="Your Course Goal !" />
-        <Button title="Add Goal" />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Your Course Goal !"
+          onChangeText={goalInputHandler}
+        />
+        <Button title="Add Goal" onPress={addGoalHandler} />
       </View>
       <View style={styles.goalsContainer}>
         <Text>List of Goals...</Text>
