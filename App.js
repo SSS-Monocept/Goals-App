@@ -14,6 +14,9 @@ export default function App() {
     setModalIsVisible(true);
   }
 
+  function endAddGoalHand() {
+    setModalIsVisible(false);
+  }
   //Task 1: to get the value enterd from the goalInputHandler to addGoalHandler.
   //Therefore, we need to store it as state, which is updated with every keystroke of goalInputHandler, so that we can use it at second fnction
   function addGoalHandler(enteredGoalText) {
@@ -22,6 +25,7 @@ export default function App() {
       { id: goalCounter.toString(), text: enteredGoalText },
     ]);
     setGoalCounter((prevCounter) => prevCounter + 1);
+    endAddGoalHand();
   }
 
   function deleteGoalHandler(id) {
@@ -43,7 +47,11 @@ export default function App() {
         color={"#5e0acc"}
         onPress={startAddGoalHand}
       />
-      <GoalInput visible={modalIsVisible} onAddGoal={addGoalHandler} />
+      <GoalInput
+        visible={modalIsVisible}
+        onAddGoal={addGoalHandler}
+        onCancel={endAddGoalHand}
+      />
       {/* Task 3: To display the course added course goals on the */}
       <View style={styles.goalsContainer}>
         <FlatList
