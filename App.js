@@ -18,8 +18,12 @@ export default function App() {
     setGoalCounter((prevCounter) => prevCounter + 1);
   }
 
-  function deleteGoalHandler() {
-    console.log("DELETE");
+  function deleteGoalHandler(id) {
+    setCourseGoals((currentCourseGoals) => {
+      return currentCourseGoals.filter((goal) => {
+        return goal.id !== id;
+      });
+    });
   }
 
   return (
