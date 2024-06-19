@@ -1,12 +1,18 @@
 import { useState } from "react";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Button } from "react-native";
 
 export default function App() {
   //Task 2: To manage the list of course goals
   const [courseGoals, setCourseGoals] = useState([]);
   const [goalCounter, setGoalCounter] = useState(0);
+
+  const [modalIsVisible, setModalIsVisible] = useState(false);
+
+  function startAddGoalHand() {
+    setModalIsVisible(true);
+  }
 
   //Task 1: to get the value enterd from the goalInputHandler to addGoalHandler.
   //Therefore, we need to store it as state, which is updated with every keystroke of goalInputHandler, so that we can use it at second fnction
@@ -32,7 +38,12 @@ export default function App() {
       1. By defalut the parent container will only take the minimum amount of space required to hold the children 
       2. We need our parent to take the entire screen space 
       */}
-      <GoalInput onAddGoal={addGoalHandler} />
+      <Button
+        title="Add new Goal"
+        color={"#5e0acc"}
+        onPress={startAddGoalHand}
+      />
+      <GoalInput visible={modalIsVisible} onAddGoal={addGoalHandler} />
       {/* Task 3: To display the course added course goals on the */}
       <View style={styles.goalsContainer}>
         <FlatList

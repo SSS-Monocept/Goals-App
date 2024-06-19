@@ -4,7 +4,6 @@ function GoalItem(props) {
   return (
     //I have replaced .key with .id beacuse key should't be passed as props
     //bind() is a js function that pre allows you to pre-configuer a function for future execution
-
     <View style={styles.goalItem} key={props.id}>
       <Pressable
         android_ripple={{ color: "#210644" }}
