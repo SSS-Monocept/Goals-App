@@ -1,4 +1,11 @@
-import { View, TextInput, Button, StyleSheet, Modal } from "react-native";
+import {
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+  Modal,
+  Image,
+} from "react-native";
 import { useState } from "react";
 
 function GoalInput(props) {
@@ -18,6 +25,14 @@ function GoalInput(props) {
     //Aftert that t
     <Modal visible={props.visible} animationType="slide">
       <View style={styles.inputContainer}>
+        {/* To add an image we are supposed to call require("Realative Path")
+            We r currently in components folder => .. => to move up
+            then move to assets => images => goal.png
+        */}
+        <Image
+          source={require("../assets/images/goal.png")}
+          style={styles.images}
+        />
         <TextInput
           style={styles.textInput}
           placeholder="Your Course Goal !"
@@ -26,10 +41,14 @@ function GoalInput(props) {
         />
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
-            <Button title="Add Goal" onPress={addGoalHandler} />
+            <Button title="Cancel" onPress={props.onCancel} color={"#f31282"} />
           </View>
           <View style={styles.button}>
-            <Button title="Cancel" onPress={props.onCancel} />
+            <Button
+              title="Add Goal"
+              onPress={addGoalHandler}
+              color={"#b180f0"}
+            />
           </View>
         </View>
       </View>
@@ -45,24 +64,32 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+    backgroundColor: "#5e0acc",
     padding: 16,
   },
   textInput: {
     borderWidth: 1,
-    borderColor: "#cccccc",
-    width: "100%",
-    padding: 8,
+    borderColor: "#e4d0ff",
+    backgroundColor: "#e4d0ff",
+    color: "#120438",
+    width: "80%",
+    padding: 16,
     borderRadius: 8,
   },
   buttonContainer: {
     flexDirection: "row",
     marginTop: 16,
+    width: "80%",
+    justifyContent: "space-between",
   },
   button: {
     width: 100,
-    marginHorizontal: 8,
+    borderRadius: 8,
+    overflow: "hidden",
+  },
+  images: {
+    width: 200,
+    height: 200,
+    margin: 50,
   },
 });
