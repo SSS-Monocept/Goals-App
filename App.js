@@ -18,6 +18,10 @@ export default function App() {
     setGoalCounter((prevCounter) => prevCounter + 1);
   }
 
+  function deleteGoalHandler() {
+    console.log("DELETE");
+  }
+
   return (
     <View style={styles.appContainer}>
       {/* 
@@ -30,7 +34,13 @@ export default function App() {
         <FlatList
           data={courseGoals}
           renderItem={(itemData) => {
-            return <GoalItem text={itemData.item.text} id={itemData.item.id} />;
+            return (
+              <GoalItem
+                text={itemData.item.text}
+                id={itemData.item.id}
+                onDeleteItem={deleteGoalHandler}
+              />
+            );
           }}
         />
         {/* 

@@ -1,13 +1,15 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 
 function GoalItem(props) {
   return (
     //I have replaced .key with .id beacuse key should't be passed as props
-    <View style={styles.goalItem} key={props.id}>
-      {/* Rounded corner does;t work directly on ios, for htat wrap the text
+    <Pressable onPress={props.onDeleteItem}>
+      <View style={styles.goalItem} key={props.id}>
+        {/* Rounded corner does;t work directly on ios, for htat wrap the text
             within view */}
-      <Text style={styles.goalText}>{props.text}</Text>
-    </View>
+        <Text style={styles.goalText}>{props.text}</Text>
+      </View>
+    </Pressable>
   );
 }
 export default GoalItem;
